@@ -27,5 +27,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     //유저삭제(회원탈퇴)
     @Modifying
     @Query("delete from User where username = :username")
-    void deleteUser(@Param("userId") String username);
+    void deleteUser(@Param("username") String username);
 }
