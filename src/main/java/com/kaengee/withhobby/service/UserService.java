@@ -14,11 +14,11 @@ public interface UserService {
     Optional<User> findByUsername(String username);
 
     //role변경
-    void changeRole(Role newRole, String userId);
+    void changeRole(Role newRole, String username);
 
     //유저 수정
-    void updateUserProfile(String userId, String username, String userProfile);
+    void updateUserProfile(String username, String name, String userProfile);
 
     //유저삭제
-    void deleteUser(String userId);
+    void deleteUser(String username);
 }
