@@ -4,6 +4,7 @@ import com.kaengee.withhobby.model.Role;
 import com.kaengee.withhobby.model.Status;
 import com.kaengee.withhobby.model.User;
 import com.kaengee.withhobby.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -39,21 +40,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     //role변경
-    public void changeRole(Role newRole, String userId){
-        userRepository.updateUserRole(userId, newRole);
+    public void changeRole(Role newRole, String username){
+        userRepository.updateUserRole(username, newRole);
     }
 
     @Override
     //유저 수정
-    public void updateUserProfile(String userId, String username, String userProfile) {
-        userRepository.updateUserProfile(userId, username, userProfile);
+    public void updateUserProfile(String username, String name, String userProfile) {
+        userRepository.updateUserProfile(username, name, userProfile);
     }
 
     @Override
     //유저삭제
-    public void deleteUser(String userId) {
-        userRepository.deleteUser(userId);
+    public void deleteUser(String username) {
+        userRepository.deleteUser(username);
     }
 
 
