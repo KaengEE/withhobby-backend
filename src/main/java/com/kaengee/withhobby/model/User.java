@@ -42,4 +42,7 @@ public class User {
 
     @Column(name = "create_at", nullable = false)
     private LocalDateTime createTime; //가입날짜
+
+    @Transient
+    private String token; //DB에 저장되지 않음
 }

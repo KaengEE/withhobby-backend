@@ -11,7 +11,7 @@ public interface UserService {
     User saveUser(User user);
 
     //유저찾기
-    Optional<User> findByUserId(String userId);
+    Optional<User> findByUsername(String username);
 
     //role변경
     void changeRole(Role newRole, String userId);

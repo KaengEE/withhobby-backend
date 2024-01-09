@@ -12,20 +12,20 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     //findBy + fieldName
-    Optional<User> findByUserId(String userid);
+    Optional<User> findByUsername(String username);
 
     //권한수정
     @Modifying
-    @Query("update User set role = :role where userId = :userId")
-    void updateUserRole(@Param("userId") String userId, @Param("role")Role role);
+    @Query("update User set role = :role where username = :username")
+    void updateUserRole(@Param("username") String username, @Param("role")Role role);
 
     //유저프로필수정
     @Modifying
-    @Query("update User set username = :username, userProfile = :userProfile where userId = :userId")
-    void updateUserProfile(@Param("userId") String userId, @Param("username") String username, @Param("userProfile") String userProfile);
+    @Query("update User set name = :name, userProfile = :userProfile where username = :username")
+    void updateUserProfile(@Param("username") String username, @Param("name") String name, @Param("userProfile") String userProfile);
 
     //유저삭제(회원탈퇴)
     @Modifying
-    @Query("delete from User where userId = :userId")
-    void deleteUser(@Param("userId") String userId);
+    @Query("delete from User where username = :username")
+    void deleteUser(@Param("userId") String username);
 }
