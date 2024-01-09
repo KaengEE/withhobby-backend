@@ -17,7 +17,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     //권한수정
     @Modifying
     @Query("update User set role = :role where userId = :userId")
-    Void updateUserRole(@Param("userId") String userId, @Param("role")Role role);
+    void updateUserRole(@Param("userId") String userId, @Param("role")Role role);
 
     //유저프로필수정
     @Modifying
