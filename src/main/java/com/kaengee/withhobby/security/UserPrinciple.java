@@ -17,7 +17,7 @@ import java.util.Set;
 @Builder
 public class UserPrinciple implements UserDetails {
     private Long id;
-    private String userId;
+    private String username;
     transient private String password; //보안정보
     transient private User user;
     private Set<GrantedAuthority> authorities;
@@ -34,7 +34,7 @@ public class UserPrinciple implements UserDetails {
 
     @Override
     public String getUsername(){
-        return userId;
+        return username;
     }
     @Override
     public boolean isAccountNonExpired() {

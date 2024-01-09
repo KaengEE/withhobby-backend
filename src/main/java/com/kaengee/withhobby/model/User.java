@@ -15,11 +15,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "user_id", unique = true, nullable = false, length = 100)
-    private String userId; //유저id (고유값)
+    @Column(name = "username", unique = true, nullable = false, length = 100)
+    private String username; //유저id (고유값)
 
-    @Column(name = "username", nullable = false, length = 100)
-    private String username; //유저이름
+    @Column(name = "name", nullable = false, length = 100)
+    private String name; //유저이름
 
     @Column(name = "password", nullable = false)
     private String password; //비밀번호
