@@ -16,7 +16,7 @@ public class User {
     private long id;
 
     @Column(name = "user_id", unique = true, nullable = false, length = 100)
-    private String userId; //유저id
+    private String userId; //유저id (고유값)
 
     @Column(name = "username", nullable = false, length = 100)
     private String username; //유저이름
