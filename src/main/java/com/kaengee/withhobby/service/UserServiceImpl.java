@@ -47,12 +47,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     //유저 수정
     public void updateUserProfile(String username, String name, String userProfile) {
         userRepository.updateUserProfile(username, name, userProfile);
     }
 
     @Override
+    @Transactional
     //유저삭제
     public void deleteUser(String username) {
         userRepository.deleteUser(username);
