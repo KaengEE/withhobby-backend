@@ -32,9 +32,12 @@ public class User {
     private Role role; //유저 권한
 
     //한명의 유저는 여러개의 팀에 가입할 수있음
-
-    @OneToMany(mappedBy = "user")
-    private Set<Team> teams; // 가입한 동아리
+    @ManyToMany
+    @JoinTable(
+            name = "user_team",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "team_id"))
+    private Set<Team> teams; // 속한 동아리
 
     @Enumerated(EnumType.STRING)
     @Column(name = "user_status", nullable = false)

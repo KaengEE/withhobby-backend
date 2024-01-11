@@ -1,5 +1,6 @@
 package com.kaengee.withhobby.controller;
 
+import com.kaengee.withhobby.model.Category;
 import com.kaengee.withhobby.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,8 @@ public class CategoryController {
 
     //카테고리 추가
     @PostMapping("create")
-    public ResponseEntity<Object> createCategory(@RequestBody String category) {
-        categoryService.createCategory(category);
+    public ResponseEntity<Object> createCategory(@RequestBody Category category) {
+        categoryService.createCategory(category.getCategory());
         return ResponseEntity.ok(true);
     }
 

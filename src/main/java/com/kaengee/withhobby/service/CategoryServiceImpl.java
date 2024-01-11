@@ -29,6 +29,7 @@ public class CategoryServiceImpl implements CategoryService{
         return categoryRepository.save(newCategory);
     }
 
+    @Override
     //카테고리찾기(이름에 맞는 id)
     public Optional<Category> findByCategory(String category){
         return categoryRepository.findByCategory(category);
