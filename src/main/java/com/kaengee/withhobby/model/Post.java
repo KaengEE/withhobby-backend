@@ -16,7 +16,6 @@ public class Post {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     private User user; //작성자id
 
     @Column(name="post_text", nullable = false, length = 10000)

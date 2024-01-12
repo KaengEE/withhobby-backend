@@ -16,7 +16,6 @@ public class Meeting {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "team_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Team team; //모임 동아리 id
 
     @Column(name="meeting_at", nullable = false)

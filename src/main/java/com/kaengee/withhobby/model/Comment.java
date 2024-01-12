@@ -17,17 +17,14 @@ public class Comment {
 
     //한개의글에 여러개 댓글
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "post_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Post post;
 
     //post테이블의 user_id 참조 = 글쓴이
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "writer_id", referencedColumnName = "user_id", insertable = false, updatable = false)
     private Post writer;
 
     //한명이 여러개 댓글 작성
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "comment_writer", referencedColumnName = "id", insertable = false, updatable = false)
     private User user; //댓글작성자
 
     @Column(name = "comment_text", nullable = false, length = 500)

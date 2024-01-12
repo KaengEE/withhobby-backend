@@ -15,12 +15,10 @@ public class Book {
 
     //한개의 동아리는 여러 모임 가능
     @ManyToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name="meeting_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Meeting meeting; //모임 id
 
     //한명의 유저는 여러 모임 가능
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="user_id", referencedColumnName = "id", insertable = false, updatable = false)
     private User user; //유저아이디
 
     @Column(name="booking_staus", nullable = false)
