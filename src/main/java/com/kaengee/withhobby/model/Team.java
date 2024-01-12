@@ -3,13 +3,14 @@ package com.kaengee.withhobby.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Entity
 @Getter
 @Setter
+@ToString
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,11 +20,8 @@ public class Team {
     private String teamname; //동아리명
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "team_host", referencedColumnName = "id", insertable = false, updatable = false)
+    //@JoinColumn(name = "team_host", referencedColumnName = "username", insertable = false, updatable = false)
     private User teamHost; // 동아리 주인
-
-    @ManyToMany(mappedBy = "teams")
-    private Set<User> members; // 팀에 가입한 유저들
 
     @Column(name="team_title", nullable=false)
     private String teamTitle; //동아리 설명
@@ -33,7 +31,7 @@ public class Team {
 
     //한개의 team은 한개의 category를 가짐
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="category_id", referencedColumnName = "id", insertable = false, updatable = false)
+    //@JoinColumn(name="category_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Category category; //카테고리
 
     @Column(name="create_at", nullable = false)

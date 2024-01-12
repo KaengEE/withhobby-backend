@@ -7,7 +7,7 @@ import com.kaengee.withhobby.model.User;
 public interface TeamService {
 
     //동아리 등록
-    Team saveTeam(Team team, User loggedInUser);
+    Team saveTeam(Team team, User user);
 
     //teamform => team
     Team transToTeam(TeamForm teamForm);

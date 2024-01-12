@@ -9,7 +9,6 @@ public class TeamForm {
 
     private String teamname;
     private String teamTitle;
-    private User teamHost;
     private String teamImg;
     private String category;
 }

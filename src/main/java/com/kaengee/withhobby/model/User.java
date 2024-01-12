@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -30,14 +29,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private Role role; //유저 권한
-
-    //한명의 유저는 여러개의 팀에 가입할 수있음
-    @ManyToMany
-    @JoinTable(
-            name = "user_team",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "team_id"))
-    private Set<Team> teams; // 속한 동아리
 
     @Enumerated(EnumType.STRING)
     @Column(name = "user_status", nullable = false)

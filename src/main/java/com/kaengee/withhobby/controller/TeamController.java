@@ -2,9 +2,11 @@ package com.kaengee.withhobby.controller;
 
 import com.kaengee.withhobby.model.Team;
 import com.kaengee.withhobby.model.TeamForm;
+import com.kaengee.withhobby.model.User;
 import com.kaengee.withhobby.repository.CategoryRepository;
 import com.kaengee.withhobby.security.UserPrinciple;
 import com.kaengee.withhobby.service.TeamService;
+import com.kaengee.withhobby.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +16,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/team")
 public class TeamController {
 
     private final TeamService teamService;
+    private final UserService userService;
     private final CategoryRepository categoryRepository;
 
 
@@ -35,7 +40,11 @@ public class TeamController {
 
         Team team = teamService.transToTeam(teamForm);
 
-        teamService.saveTeam(team, userPrinciple.getUser());
+        //System.out.println(userPrinciple.getUsername());
+        Optional<User> user = userService.findByUsername(userPrinciple.getUsername());
+        if(user.isPresent()){
+            teamService.saveTeam(team, user.get());
+        }
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

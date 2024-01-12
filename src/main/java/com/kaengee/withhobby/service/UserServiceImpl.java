@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService {
         user.setRole(Role.USER); //초기값 user
         user.setUserStatus(Status.FREE); //초기값 free
         user.setCreateTime(LocalDateTime.now());
-        user.setTeams(null); //처음에 null
         user.setUserProfile(null); //이미지 url 저장
 
         return userRepository.save(user);
