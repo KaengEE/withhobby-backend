@@ -1,7 +1,6 @@
 package com.kaengee.withhobby.service;
 
 import com.kaengee.withhobby.model.Category;
-import com.kaengee.withhobby.model.Team;
 import com.kaengee.withhobby.repository.CategoryRepository;
 import com.kaengee.withhobby.repository.TeamRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -9,7 +8,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -67,26 +65,32 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Transactional
     @Override
-    //카테고리 삭제
-    public void deleteCategory(Long id) {
-        Optional<Category> optionalCategoryToDelete = categoryRepository.findById(id);
+    //카테고리 찾기
+    public Category getCategoryById(Long id) {
+        return categoryRepository.findById(id).orElse(null);
+    }
 
-        if (optionalCategoryToDelete.isPresent()) {
-            Category categoryToDelete = optionalCategoryToDelete.get();
+    @Transactional
+    @Override
+    // 카테고리 삭제
+    public void deleteCategory(Long categoryId) {
+        // 1. 삭제할 카테고리 가져오기
+        Optional<Category> categoryOptional = categoryRepository.findById(categoryId);
 
-            // 기타 카테고리 가져오거나 생성
-            Category etcCategory = createOrGetExistingCategory("기타");
+        if (categoryOptional.isPresent()) {
+            Category categoryToDelete = categoryOptional.get();
 
-            // 팀들의 카테고리를 기타 카테고리로 변경
-            List<Team> teamsToUpdate = teamRepository.findByCategory(categoryToDelete);
-            for (Team team : teamsToUpdate) {
-                team.setCategory(etcCategory);
-            }
+            // 2. "기타" 카테고리 가져오거나 생성
+            Category otherCategory = categoryRepository.findByCategory("기타")
+                    .orElseGet(() -> createCategory("기타"));
 
-            categoryRepository.deleteCategory(id);
+            // 3. 해당 카테고리에 속한 팀들을 "기타" 카테고리로 이동
+            teamRepository.moveTeamsToOtherCategory(categoryToDelete, otherCategory);
+
+            // 4. 카테고리 삭제
+            categoryRepository.deleteCategory(categoryToDelete.getId()); // 변경된 부분
         } else {
-            // 해당 ID에 해당하는 카테고리가 없을 경우 예외 처리 또는 메시지 출력
-            throw new EntityNotFoundException("카테고리를 찾을 수 없습니다. " + id);
+            throw new EntityNotFoundException("Category not found with id: " + categoryId);
         }
     }
 }

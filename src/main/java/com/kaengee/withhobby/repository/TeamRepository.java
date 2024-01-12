@@ -27,6 +27,18 @@ public interface TeamRepository extends JpaRepository<Team,Long> {
     @Query("delete from Team where teamname = :teamname")
     void deleteTeam(@Param("teamname") String teamname);
 
+
+    //특정 팀 카테고리 이동
+    @Modifying
+    @Query("update Team t set t.category = (select c from Category c where c.category = '기타') where t.category = :category")
+    void updateCategory(@Param("category") Category category);
+
+    //삭제시 카테고리 이동
+    @Modifying
+    @Query("update Team t set t.category = :otherCategory where t.category = :category")
+    void moveTeamsToOtherCategory(@Param("category") Category category, @Param("otherCategory") Category otherCategory);
+
+
     // 해당 카테고리에 속한 팀들을 찾는 메서드
     List<Team> findByCategory(Category category);
 }

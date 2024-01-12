@@ -20,6 +20,10 @@ public interface CategoryService {
     // 카테고리 생성 또는 이미 존재하는 카테고리 반환
     Category createOrGetExistingCategory(String categoryName);
 
-    //카테고리 삭제
-    void deleteCategory(Long id);
+    //카테고리 찾기
+    Category getCategoryById(Long id);
+
+    @Transactional
+        // 카테고리 삭제
+    void deleteCategory(Long categoryId);
 }

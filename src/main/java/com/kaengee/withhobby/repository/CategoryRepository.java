@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-    Optional<Category> findByCategory(String category);
+    Optional<Category> findByCategory(String categoryName);
 
     //카테고리 수정
     @Modifying
@@ -21,7 +21,9 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
                         @Param("id") Long id);
     //카테고리 삭제
     @Modifying
-    @Query("delete from Category where id = :id")
-    void deleteCategory(@Param("id") Long id);
+    @Query("delete from Category where id = :categoryId")
+    void deleteCategory(@Param("categoryId") Long categoryId);
+
+
 
 }
