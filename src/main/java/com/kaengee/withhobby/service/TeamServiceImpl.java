@@ -3,6 +3,8 @@ package com.kaengee.withhobby.service;
 import com.kaengee.withhobby.model.*;
 import com.kaengee.withhobby.repository.TeamRepository;
 import com.kaengee.withhobby.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +57,27 @@ public class TeamServiceImpl implements TeamService {
         return team;
     }
 
-    //동아리 가입 유저 찾기
+    //동아리 카테고리 이동
+    @Transactional
+    @Override
+    public void updateTeamCategory(Long teamId, Category newCategoryId) {
+        // 1. 해당 팀 가져오기
+        Optional<Team> teamOptional = teamRepository.findById(teamId);
+
+        if (teamOptional.isPresent()) {
+            Team teamToUpdate = teamOptional.get();
+
+            // 2. 새로운 카테고리로 수정
+            teamToUpdate.setCategory(newCategoryId);
+
+            // 3. 업데이트된 팀 저장
+            teamRepository.save(teamToUpdate);
+        } else {
+            throw new EntityNotFoundException("팀 아이디를 찾을 수 없음.: " + teamId);
+        }
+    }
+
+    //동아리 가입(member)
 
 
     //동아리 수정

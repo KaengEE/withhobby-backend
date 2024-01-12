@@ -30,8 +30,8 @@ public interface TeamRepository extends JpaRepository<Team,Long> {
 
     //특정 팀 카테고리 이동
     @Modifying
-    @Query("update Team t set t.category = (select c from Category c where c.category = '기타') where t.category = :category")
-    void updateCategory(@Param("category") Category category);
+    @Query("update Team t set t.category.id = :newCategoryId where t.id = :teamId")
+    void updateTeamCategory(@Param("teamId") Team teamId, @Param("newCategoryId") Category newCategoryId);
 
     //삭제시 카테고리 이동
     @Modifying

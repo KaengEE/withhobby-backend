@@ -1,20 +1,19 @@
 package com.kaengee.withhobby.controller;
 
+import com.kaengee.withhobby.model.Category;
 import com.kaengee.withhobby.model.Team;
 import com.kaengee.withhobby.model.TeamForm;
 import com.kaengee.withhobby.model.User;
 import com.kaengee.withhobby.repository.CategoryRepository;
 import com.kaengee.withhobby.security.UserPrinciple;
+import com.kaengee.withhobby.service.CategoryService;
 import com.kaengee.withhobby.service.TeamService;
 import com.kaengee.withhobby.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -26,6 +25,7 @@ public class TeamController {
     private final TeamService teamService;
     private final UserService userService;
     private final CategoryRepository categoryRepository;
+    private final CategoryService categoryService;
 
 
     //team 생성
@@ -47,5 +47,12 @@ public class TeamController {
         }
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    //카테고리 이동(개별)
+    @PutMapping("/{teamId}/updateCategory/{newCategoryId}")
+    public void updateTeamCategory(@PathVariable Team teamId, @PathVariable Long newCategoryId) {
+        Category newCategory = categoryService.getCategoryById(newCategoryId);
+        teamService.updateTeamCategory(teamId.getId(), newCategory);
     }
 }
