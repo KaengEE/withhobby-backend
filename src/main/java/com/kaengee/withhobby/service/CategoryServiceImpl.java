@@ -88,9 +88,9 @@ public class CategoryServiceImpl implements CategoryService {
             teamRepository.moveTeamsToOtherCategory(categoryToDelete, otherCategory);
 
             // 4. 카테고리 삭제
-            categoryRepository.deleteCategory(categoryToDelete.getId()); // 변경된 부분
+            categoryRepository.deleteCategory(categoryToDelete.getId()); //카테고리 객체로 가져와서 id를 get
         } else {
-            throw new EntityNotFoundException("Category not found with id: " + categoryId);
+            throw new EntityNotFoundException("카테고리를 찾을 수 없습니다.: " + categoryId);
         }
     }
 }
