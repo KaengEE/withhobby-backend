@@ -4,10 +4,7 @@ import com.kaengee.withhobby.model.Category;
 import com.kaengee.withhobby.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,8 +21,16 @@ public class CategoryController {
     }
 
     //카테고리 수정(이름 변경)
+    @PutMapping("/{id}")
+    public void updateCategory(@PathVariable Long id, @RequestBody Category category) {
+        categoryService.updateCategory(category.getCategory(), id);
+    }
 
-    //카테고리 삭제
+    //카테고리 삭제 및 "기타"로 이동
+    @DeleteMapping("/{id}")
+    public void deleteCategory(@PathVariable Long id) {
+        categoryService.deleteCategory(id);
+    }
 
     //카테고리 이동(TEAM 이동)
 
