@@ -28,4 +28,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query("delete from User where username = :username")
     void deleteUser(@Param("username") String username);
+
+
 }

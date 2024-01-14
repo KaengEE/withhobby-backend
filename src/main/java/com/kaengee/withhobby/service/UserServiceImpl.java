@@ -60,4 +60,17 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    @Override
+    //유저상태조회
+    public Status getUserStatusByUsername(String username) {
+        Optional<User> userOptional = userRepository.findByUsername(username);
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            return user.getUserStatus();
+        }
+
+        return null;
+    }
+
 }

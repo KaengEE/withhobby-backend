@@ -56,6 +56,4 @@ public class UserPrinciple implements UserDetails {
         return true;
     }
 
-
-
 }
