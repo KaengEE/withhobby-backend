@@ -17,4 +17,8 @@ public interface TeamService {
     //동아리 카테고리 이동
     @Transactional
     void updateTeamCategory(Long teamId, Category newCategoryId);
+
+
+    //팀 아이디로 팀 이름 찾기 getTeamById
+    Team getTeamById(Long teamId);
 }

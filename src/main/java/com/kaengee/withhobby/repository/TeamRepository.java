@@ -41,4 +41,6 @@ public interface TeamRepository extends JpaRepository<Team,Long> {
 
     // 해당 카테고리에 속한 팀들을 찾는 메서드
     List<Team> findByCategory(Category category);
+
+
 }

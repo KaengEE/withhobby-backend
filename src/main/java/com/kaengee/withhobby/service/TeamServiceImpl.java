@@ -77,8 +77,14 @@ public class TeamServiceImpl implements TeamService {
         }
     }
 
-    //동아리 가입(member)
 
+    //팀 아이디로 팀 이름 찾기 getTeamById
+    @Override
+    public Team getTeamById(Long teamId) {
+        Optional<Team> teamOptional = teamRepository.findById(teamId);
+        return teamOptional.orElse(null);
+
+    }
 
     //동아리 수정
 
