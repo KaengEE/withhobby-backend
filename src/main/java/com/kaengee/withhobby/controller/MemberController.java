@@ -75,8 +75,6 @@ public class MemberController {
         // teamId로 팀 정보 찾기
         Team team = teamService.getTeamById(teamId);
 
-
-
         // 동아리가 없을 경우
         if (team == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("동아리를 찾을 수 없습니다");

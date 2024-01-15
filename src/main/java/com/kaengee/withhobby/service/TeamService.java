@@ -21,4 +21,11 @@ public interface TeamService {
 
     //팀 아이디로 팀 이름 찾기 getTeamById
     Team getTeamById(Long teamId);
+
+    //팀 이름으로 host_id 찾기
+    Long findTeamHostId(String teamname);
+
+    //동아리 수정(이름,내용,이미지)
+    @Transactional
+    void updateTeam(TeamForm teamForm);
 }

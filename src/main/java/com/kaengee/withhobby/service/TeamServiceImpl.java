@@ -86,7 +86,18 @@ public class TeamServiceImpl implements TeamService {
 
     }
 
-    //동아리 수정
+    @Override
+    //팀 이름으로 host_id 찾기
+    public Long findTeamHostId(String teamname) {
+        return teamRepository.findTeamHostId(teamname);
+    }
+
+    //동아리 수정(이름,내용,이미지)
+    @Transactional
+    @Override
+    public void updateTeam(TeamForm teamForm){
+        teamRepository.updateTeam(teamForm.getTeamname(), teamForm.getTeamTitle(), teamForm.getTeamImg());
+    }
 
 
     //동아리 삭제
