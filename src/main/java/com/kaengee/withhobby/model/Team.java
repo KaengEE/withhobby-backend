@@ -36,4 +36,5 @@ public class Team {
 
     @Column(name="create_at", nullable = false)
     private LocalDateTime createAt; //생성날짜
+
 }

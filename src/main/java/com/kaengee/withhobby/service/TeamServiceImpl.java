@@ -1,6 +1,7 @@
 package com.kaengee.withhobby.service;
 
 import com.kaengee.withhobby.model.*;
+import com.kaengee.withhobby.repository.MemberRepository;
 import com.kaengee.withhobby.repository.TeamRepository;
 import com.kaengee.withhobby.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,7 +19,7 @@ public class TeamServiceImpl implements TeamService {
     private final TeamRepository teamRepository;
     private final UserRepository userRepository;
     private final CategoryService categoryService;
-    private final UserService userService;
+
 
 
     //동아리 등록
@@ -101,6 +102,17 @@ public class TeamServiceImpl implements TeamService {
 
 
     //동아리 삭제
+    @Transactional
+    @Override
+    public void deleteTeam(String teamname) {
+            teamRepository.deleteTeam(teamname);
+    }
+
+    //팀 아이디 찾기
+    @Override
+    public Long findTeamId(String teamname){
+        return teamRepository.findTeamId(teamname);
+    }
 
 
 }
