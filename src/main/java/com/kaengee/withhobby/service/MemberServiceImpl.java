@@ -47,4 +47,10 @@ public class MemberServiceImpl implements MemberService{
         memberRepository.delete(member);
     }
 
+    @Override
+    // 동아리별 멤버조회
+    public List<Member> getMembersByTeamId(Long teamId) {
+        return memberRepository.findByTeamId(teamId);
+    }
+
 }

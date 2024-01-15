@@ -21,4 +21,7 @@ public interface MemberService {
 
     // 동아리에서 전체멤버 삭제
     void removeMemberFromTeam(Member member);
+
+    // 동아리별 멤버조회
+    List<Member> getMembersByTeamId(Long teamId);
 }

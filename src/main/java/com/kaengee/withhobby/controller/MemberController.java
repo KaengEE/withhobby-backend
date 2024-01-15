@@ -102,4 +102,9 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("동아리에서 탈퇴할 권한이 없습니다");
     }
 
+    //동아리별 멤버조회
+    @GetMapping("/{teamId}")
+    public List<Member> getMembersByTeamId(@PathVariable Long teamId) {
+        return memberService.getMembersByTeamId(teamId);
+    }
 }
