@@ -32,21 +32,22 @@ public class TeamController {
     @PostMapping("create")
     public ResponseEntity<Object> createTeam(@RequestBody TeamForm teamForm,
                                              @AuthenticationPrincipal UserPrinciple userPrinciple) {
+        // 현재 로그인한 사용자의 username을 이용해서 상태 가져오기
+        String loggedInUsername = userPrinciple.getUsername();
+        Status status = userService.getUserStatusByUsername(loggedInUsername);
 
-//        System.out.println(teamForm.getTeamname());
-//        System.out.println(teamForm.getTeamTitle());
-//        System.out.println(teamForm.getTeamImg());
-//        System.out.println(teamForm.getCategory());
+        // 사용자의 상태가 FREE인 경우에만 팀을 생성
+        if (status == Status.FREE) {
+            Team team = teamService.transToTeam(teamForm);
 
-        Team team = teamService.transToTeam(teamForm);
-
-        //System.out.println(userPrinciple.getUsername());
-        Optional<User> user = userService.findByUsername(userPrinciple.getUsername());
-        if(user.isPresent()){
-            teamService.saveTeam(team, user.get());
+            Optional<User> user = userService.findByUsername(loggedInUsername);
+            if (user.isPresent()) {
+                teamService.saveTeam(team, user.get());
+                return ResponseEntity.status(HttpStatus.CREATED).build();
+            }
         }
-
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        // 사용자의 상태가 FREE가 아닌 경우에는 생성 불가능
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("팀 생성 권한이 없습니다.");
     }
 
     //카테고리 이동(개별)
@@ -131,6 +132,19 @@ public class TeamController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("삭제 실패");
         }
+    }
+
+    //카테고리별로 팀조회하기
+    @GetMapping("/{categoryId}")
+    public ResponseEntity<List<Team>> teamList(@PathVariable Category categoryId){
+
+        List<Team> teams = teamService.findTeamByCategory(category.getId());
+
+        if (teams.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(teams, HttpStatus.OK);
     }
 
 }
