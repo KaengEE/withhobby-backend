@@ -118,8 +118,12 @@ public class TeamController {
                 }
 
                 teamService.deleteTeam(teamForm.getTeamname());
-                return ResponseEntity.ok("삭제 성공");
                 //삭제 성공 후 hostId의 유저 "FREE"로 상태변경
+                User userStatus = user.get();
+                user.get().setUserStatus(Status.FREE);
+                userService.saveUser(userStatus);
+
+                return ResponseEntity.ok("삭제 성공");
 
             } else {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("접근 제한");

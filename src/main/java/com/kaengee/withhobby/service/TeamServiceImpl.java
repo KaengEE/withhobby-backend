@@ -1,7 +1,6 @@
 package com.kaengee.withhobby.service;
 
 import com.kaengee.withhobby.model.*;
-import com.kaengee.withhobby.repository.MemberRepository;
 import com.kaengee.withhobby.repository.TeamRepository;
 import com.kaengee.withhobby.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -105,6 +104,7 @@ public class TeamServiceImpl implements TeamService {
     @Transactional
     @Override
     public void deleteTeam(String teamname) {
+
             teamRepository.deleteTeam(teamname);
     }
 
