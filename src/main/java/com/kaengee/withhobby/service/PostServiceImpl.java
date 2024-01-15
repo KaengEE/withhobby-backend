@@ -4,6 +4,7 @@ import com.kaengee.withhobby.model.Post;
 import com.kaengee.withhobby.model.User;
 import com.kaengee.withhobby.repository.PostRepository;
 import com.kaengee.withhobby.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,17 @@ public class PostServiceImpl implements PostService{
         return postRepository.save(post);
     }
 
+    @Transactional
+    @Override
     //게시글 수정
+    public void updatePost(Long postId, Post post) {
+        // 게시글 수정
+        post.setPostTitle(post.getPostTitle());
+        post.setPostText(post.getPostText());
+
+        // 수정된 게시글 저장
+        postRepository.updatePost(post.getPostTitle(), post.getPostText(), postId);
+    }
 
     //게시글 삭제
 

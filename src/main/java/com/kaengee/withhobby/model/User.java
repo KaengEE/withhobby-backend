@@ -39,4 +39,5 @@ public class User {
 
     @Transient
     private String token; //DB에 저장되지 않음
+    
 }
