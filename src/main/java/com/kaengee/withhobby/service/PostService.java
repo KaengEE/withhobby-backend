@@ -11,4 +11,8 @@ public interface PostService {
     @Transactional
         //게시글 수정
     void updatePost(Long postId, Post post);
+
+    //게시글 삭제
+    @Transactional
+    void deletePost(Long postId);
 }
