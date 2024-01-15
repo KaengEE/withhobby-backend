@@ -1,7 +1,6 @@
 package com.kaengee.withhobby.repository;
 
 import com.kaengee.withhobby.model.Post;
-import com.kaengee.withhobby.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,11 +20,6 @@ public interface PostRepository extends JpaRepository<Post,Long> {
     //작성자 id 찾기
     @Query("SELECT p.user.id FROM Post p WHERE p.id = :postId")
     Long findUserIdByPostId(@Param("postId") Long postId);
-
-    // 게시글의 작성자 객체를 가져오는 메서드
-    @Query("SELECT p.user FROM Post p WHERE p.id = :postId")
-    User findUserByPostId(@Param("postId") Long postId);
-
 
     // 게시글 삭제
     @Modifying
