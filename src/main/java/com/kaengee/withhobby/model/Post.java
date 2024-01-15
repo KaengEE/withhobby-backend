@@ -18,6 +18,9 @@ public class Post {
     @ManyToOne(fetch = FetchType.EAGER)
     private User user; //작성자id
 
+    @Column(name="post_title", nullable = false, length = 1000)
+    private String postTitle; //글 제목
+
     @Column(name="post_text", nullable = false, length = 10000)
     private String postText; //글 내용
 
