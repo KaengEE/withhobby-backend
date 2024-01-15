@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,6 +56,12 @@ public class TeamServiceImpl implements TeamService {
         }
 
         return team;
+    }
+
+    //카테고리별로 동아리 조회
+    @Override
+    public List<Team> findTeamByCategory(Category categoryId){
+        return teamRepository.findTeamByCategory(categoryId);
     }
 
     //동아리 카테고리 이동

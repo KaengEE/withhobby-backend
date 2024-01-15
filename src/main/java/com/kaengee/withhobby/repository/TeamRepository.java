@@ -38,9 +38,8 @@ public interface TeamRepository extends JpaRepository<Team,Long> {
     @Query("update Team t set t.category = :otherCategory where t.category = :category")
     void moveTeamsToOtherCategory(@Param("category") Category category, @Param("otherCategory") Category otherCategory);
 
-
-    // 해당 카테고리에 속한 팀들을 찾는 메서드
-    List<Team> findByCategory(Category category);
+    // 해당 카테고리id로 팀들을 찾는 메서드
+    List<Team> findTeamByCategory(Category categoryId);
 
     // 팀 이름을 통해 team_host_id 가져오기
     @Query("select t.teamHost.id from Team t where t.teamname = :teamname")

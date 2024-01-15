@@ -6,6 +6,8 @@ import com.kaengee.withhobby.model.TeamForm;
 import com.kaengee.withhobby.model.User;
 import jakarta.transaction.Transactional;
 
+import java.util.List;
+
 public interface TeamService {
 
     //동아리 등록
@@ -13,6 +15,9 @@ public interface TeamService {
 
     //teamform => team
     Team transToTeam(TeamForm teamForm);
+
+    //카테고리별로 동아리 조회
+    List<Team> findTeamByCategory(Category category);
 
     //동아리 카테고리 이동
     @Transactional

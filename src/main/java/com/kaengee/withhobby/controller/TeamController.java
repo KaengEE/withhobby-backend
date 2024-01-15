@@ -138,7 +138,7 @@ public class TeamController {
     @GetMapping("/{categoryId}")
     public ResponseEntity<List<Team>> teamList(@PathVariable Category categoryId){
 
-        List<Team> teams = teamService.findTeamByCategory(category.getId());
+        List<Team> teams = teamService.findTeamByCategory(categoryId);
 
         if (teams.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
