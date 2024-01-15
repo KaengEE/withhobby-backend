@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface PostRepository extends JpaRepository<Post,Long> {
 
 
@@ -26,5 +28,6 @@ public interface PostRepository extends JpaRepository<Post,Long> {
     @Query("delete from Post where id = :id")
     void deleteById(@Param("id") Long id);
 
-
+    //전체 게시글 조회
+    List<Post> findAll();
 }

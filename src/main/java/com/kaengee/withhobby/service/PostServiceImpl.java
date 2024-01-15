@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -50,5 +51,9 @@ public class PostServiceImpl implements PostService{
         postRepository.deleteById(postId);
     }
 
+    @Override
     //게시글 조회
+    public List<Post> findAllPosts() {
+        return postRepository.findAll();
+    }
 }

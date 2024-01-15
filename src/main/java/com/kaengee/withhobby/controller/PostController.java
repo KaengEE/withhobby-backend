@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/post")
@@ -80,4 +82,11 @@ public class PostController {
         // 게시글이 존재하지 않거나 권한이 없는 경우
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("게시글 수정 권한이 없습니다.");
     }
+
+    //전체 게시글 조회
+    @GetMapping("/list")
+    public List<Post> getAllPosts() {
+        return postService.findAllPosts();
+    }
+
 }
