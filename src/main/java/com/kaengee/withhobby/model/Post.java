@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -28,9 +26,5 @@ public class Post {
 
     @Column(name = "create_at", nullable = false)
     private LocalDateTime createAt; //작성시간
-
-    // 게시글 삭제시 댓글도 삭제
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private List<Comment> comments = new ArrayList<>();
 
 }
