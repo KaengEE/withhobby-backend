@@ -3,6 +3,7 @@ package com.kaengee.withhobby.controller;
 import com.kaengee.withhobby.model.Post;
 import com.kaengee.withhobby.repository.PostRepository;
 import com.kaengee.withhobby.security.UserPrinciple;
+import com.kaengee.withhobby.service.CommentService;
 import com.kaengee.withhobby.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ public class PostController {
 
     private final PostService postService;
     private final PostRepository postRepository;
+    private final CommentService commentService;
 
     //게시글 작성
     @PostMapping("/create")
@@ -74,6 +76,9 @@ public class PostController {
         // 게시글의 작성자 id와 로그인한 유저 id가 동일하면 삭제
         if (postUserId != null && postUserId.equals(userId)) {
 
+            //게시글에 있는 댓글 삭제하기
+
+            //게시글 삭제하기
             postService.deletePost(postId);
 
             return ResponseEntity.status(HttpStatus.OK).body("게시글 삭제 성공");

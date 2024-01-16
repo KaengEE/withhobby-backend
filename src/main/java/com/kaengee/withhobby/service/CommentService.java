@@ -11,4 +11,8 @@ public interface CommentService {
     @Transactional
     //댓글수정
     void updateComment(CommentForm commentForm, Long commentId);
+
+    @Transactional
+    //댓글삭제
+    void deleteComment(Long commentId);
 }

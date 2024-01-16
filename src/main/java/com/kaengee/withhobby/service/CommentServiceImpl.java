@@ -37,4 +37,11 @@ public class CommentServiceImpl implements CommentService{
         commentRepository.updateComment(commentForm.getText(), commentId);
     }
 
+    @Override
+    @Transactional
+    //댓글삭제
+    public void deleteComment(Long commentId){
+        commentRepository.deleteComment(commentId);
+    }
+
 }

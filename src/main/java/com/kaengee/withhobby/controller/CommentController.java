@@ -73,4 +73,33 @@ public class CommentController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("유저를 찾을 수 없음");
         }
     }
+
+    //댓글 삭제
+    @DeleteMapping("/delete/{commentId}")
+    public ResponseEntity<Object> deleteComment(@PathVariable Long commentId,
+                                                @AuthenticationPrincipal UserPrinciple userPrinciple) {
+        //유저 이름으로 id 찾기
+        String username = userPrinciple.getUsername();
+        Optional<User> user = userService.findByUsername(username);
+
+        //commentForm의 comment id로 userId 찾기
+        Optional<Comment> comment = commentRepository.findById(commentId);
+
+        if (comment.isPresent()) {
+            //작성자 userId
+            Long writerId = comment.get().getUser().getId();
+            // 작성자 유저와 로그인 유저가 같아야 삭제 가능
+            if (user.isPresent() && writerId.equals(user.get().getId())) {
+
+                commentService.deleteComment(commentId);
+                return ResponseEntity.status(HttpStatus.CREATED).body("댓글 삭제 성공");
+            } else {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("댓글 삭제 실패");
+            }
+
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("댓글을 찾을 수 없음");
+    }
+
+
 }
