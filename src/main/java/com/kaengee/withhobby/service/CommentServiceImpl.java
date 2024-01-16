@@ -3,6 +3,7 @@ package com.kaengee.withhobby.service;
 import com.kaengee.withhobby.model.Comment;
 import com.kaengee.withhobby.model.CommentForm;
 import com.kaengee.withhobby.repository.CommentRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,4 +29,12 @@ public class CommentServiceImpl implements CommentService{
 
         return commentRepository.save(comment);
     }
+
+    @Override
+    @Transactional
+    //댓글수정
+    public void updateComment(CommentForm commentForm, Long commentId) {
+        commentRepository.updateComment(commentForm.getText(), commentId);
+    }
+
 }

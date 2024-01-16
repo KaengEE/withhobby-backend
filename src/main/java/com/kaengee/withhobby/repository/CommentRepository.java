@@ -15,6 +15,9 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
                        @Param("id") Long id);
 
     //삭제
+    @Modifying
+    @Query("delete from Comment where id = :id")
+    void deleteComment(@Param("id") Long id);
 
     //게시글별 댓글 조회
 
