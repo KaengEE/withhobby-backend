@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/category")
@@ -32,6 +34,10 @@ public class CategoryController {
         categoryService.deleteCategory(id);
     }
 
-    //카테고리 이동(TEAM 이동)
+    //카테고리 조회(출력)
+    @GetMapping("/list")
+    public List<Category> categoryList(){
+        return categoryService.categoryList();
+    }
 
 }

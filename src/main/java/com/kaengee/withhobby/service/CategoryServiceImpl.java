@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,6 +17,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final TeamRepository teamRepository;
+
+    @Override
+    //카테고리 전체조회
+    public List<Category> categoryList(){
+        return categoryRepository.findAll();
+    }
 
     @Override
     // 카테고리 생성
@@ -38,6 +45,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Optional<Category> findByCategory(String category) {
         return categoryRepository.findByCategory(category);
     }
+
 
     @Transactional
     @Override
@@ -65,7 +73,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Transactional
     @Override
-    //카테고리 찾기
+    //카테고리 id로 찾기
     public Category getCategoryById(Long id) {
         return categoryRepository.findById(id).orElse(null);
     }

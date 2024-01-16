@@ -3,9 +3,13 @@ package com.kaengee.withhobby.service;
 import com.kaengee.withhobby.model.Category;
 import jakarta.transaction.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CategoryService {
+
+    //카테고리 전체조회
+    List<Category> categoryList();
 
     // 카테고리 생성
     Category createCategory(String categoryName);
