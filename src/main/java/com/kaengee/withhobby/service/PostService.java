@@ -20,4 +20,6 @@ public interface PostService {
 
     //게시글 조회
     List<Post> findAllPosts();
+
+    Post getPostById(Long postId);
 }

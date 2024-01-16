@@ -4,6 +4,7 @@ import com.kaengee.withhobby.model.Role;
 import com.kaengee.withhobby.model.Status;
 import com.kaengee.withhobby.model.User;
 import com.kaengee.withhobby.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -71,6 +72,13 @@ public class UserServiceImpl implements UserService {
         }
 
         return null;
+    }
+
+    //userId로 유저찾기
+    @Override
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("유저ID를 찾을 수 없음: " + userId));
     }
 
 }

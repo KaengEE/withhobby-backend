@@ -25,4 +25,6 @@ public interface UserService {
 
     //유저상태조회
     Status getUserStatusByUsername(String username);
+
+    User getUserById(Long userId);
 }

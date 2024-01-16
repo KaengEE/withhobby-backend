@@ -4,6 +4,7 @@ import com.kaengee.withhobby.model.Post;
 import com.kaengee.withhobby.model.User;
 import com.kaengee.withhobby.repository.PostRepository;
 import com.kaengee.withhobby.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -55,5 +56,13 @@ public class PostServiceImpl implements PostService{
     //게시글 조회
     public List<Post> findAllPosts() {
         return postRepository.findAll();
+    }
+
+
+    //게시글id로 게시글 찾기
+    @Override
+    public Post getPostById(Long postId) {
+        return postRepository.findById(postId)
+                .orElseThrow(() -> new EntityNotFoundException("게시글ID를 찾을 수 없음: " + postId));
     }
 }
