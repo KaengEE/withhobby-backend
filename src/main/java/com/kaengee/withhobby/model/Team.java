@@ -30,8 +30,7 @@ public class Team {
     private String teamImg; //동아리 사진
 
     //한개의 team은 한개의 category를 가짐
-    @OneToOne(fetch = FetchType.EAGER)
-    //@JoinColumn(name="category_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Category category; //카테고리
 
     @Column(name="create_at", nullable = false)
