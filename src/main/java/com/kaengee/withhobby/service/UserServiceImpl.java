@@ -7,6 +7,7 @@ import com.kaengee.withhobby.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -55,11 +56,32 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
+    //비밀번호 변경 (현재 비밀번호와 일치하는지 확인)
+    public void changePassword(String username, String currentPassword, String newPassword) {
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+
+        if (optionalUser.isEmpty()) {
+            throw new UsernameNotFoundException("유저를 찾을 수 없음: " + username);
+        }
+
+        User user = optionalUser.get();
+
+        // 현재 비밀번호 확인
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않음");
+        }
+
+        // 새로운 비밀번호 설정 및 저장
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
+
+    @Override
+    @Transactional
     //유저삭제
     public void deleteUser(String username) {
         userRepository.deleteUser(username);
     }
-
 
     @Override
     //유저상태조회

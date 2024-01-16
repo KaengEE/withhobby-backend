@@ -1,5 +1,6 @@
 package com.kaengee.withhobby.controller;
 
+import com.kaengee.withhobby.model.ChangePassword;
 import com.kaengee.withhobby.model.Role;
 import com.kaengee.withhobby.model.User;
 import com.kaengee.withhobby.security.UserPrinciple;
@@ -33,6 +34,20 @@ public class UserController {
 //        System.out.println(user.getUserProfile());
 
         userService.updateUserProfile(userPrinciple.getUsername(), user.getName(), user.getUserProfile());
+    }
+
+    //비밀번호 변경
+    @PutMapping("/changePassword")
+    public ResponseEntity<Object> changePassword(@AuthenticationPrincipal UserPrinciple userPrinciple,
+                                                 @RequestBody ChangePassword changePassword){
+
+        String username = userPrinciple.getUsername();
+        String currentPassword = changePassword.getCurrentPassword();
+        String newPassword = changePassword.getNewPassword();
+
+        userService.changePassword(username, currentPassword, newPassword);
+
+        return ResponseEntity.ok("비밀번호 변경 성공");
     }
 
     //회원 삭제

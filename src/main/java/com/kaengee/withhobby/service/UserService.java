@@ -3,6 +3,7 @@ package com.kaengee.withhobby.service;
 import com.kaengee.withhobby.model.Role;
 import com.kaengee.withhobby.model.Status;
 import com.kaengee.withhobby.model.User;
+import jakarta.transaction.Transactional;
 
 import java.util.Optional;
 
@@ -19,6 +20,10 @@ public interface UserService {
 
     //유저 수정
     void updateUserProfile(String username, String name, String userProfile);
+
+    @Transactional
+    //비밀번호 변경 (현재 비밀번호와 일치하는지 확인)
+    void changePassword(String username, String currentPassword, String newPassword);
 
     //유저삭제
     void deleteUser(String username);
