@@ -18,6 +18,10 @@ public interface CommentService {
     //댓글삭제
     void deleteComment(Long commentId);
 
+    @Transactional
+    // 게시글 ID에 해당하는 댓글 삭제
+    void deleteCommentsByPostId(Long postId);
+
     //게시글별 댓글조회
     List<Comment> findCommentsByPostId(Long postId);
 

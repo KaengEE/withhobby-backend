@@ -49,6 +49,8 @@ public class PostServiceImpl implements PostService{
     @Override
     //게시글 삭제
     public void deletePost(Long postId){
+
+        // 게시글 삭제
         postRepository.deleteById(postId);
     }
 

@@ -46,6 +46,13 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
+    @Transactional
+    // 게시글 ID에 해당하는 댓글 삭제
+    public void deleteCommentsByPostId(Long postId) {
+        commentRepository.deleteByPostId(postId);
+    }
+
+    @Override
     //게시글별 댓글조회
     public List<Comment> findCommentsByPostId(Long postId) {
         return commentRepository.findByPostId(postId);

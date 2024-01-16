@@ -76,8 +76,8 @@ public class PostController {
         // 게시글의 작성자 id와 로그인한 유저 id가 동일하면 삭제
         if (postUserId != null && postUserId.equals(userId)) {
 
-            //게시글에 있는 댓글 삭제하기
-
+            //댓글 삭제하기
+            commentService.deleteCommentsByPostId(postId);
             //게시글 삭제하기
             postService.deletePost(postId);
 
