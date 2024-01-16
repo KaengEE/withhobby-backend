@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     //수정
@@ -20,5 +22,5 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     void deleteComment(@Param("id") Long id);
 
     //게시글별 댓글 조회
-
+    List<Comment> findByPostId(Long postId);
 }

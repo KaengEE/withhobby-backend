@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -101,5 +102,9 @@ public class CommentController {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("댓글을 찾을 수 없음");
     }
 
-
+    //게시글별 댓글조회
+    @GetMapping("/{postId}")
+    public List<Comment> getCommentsByPostId(@PathVariable Long postId) {
+        return commentService.findCommentsByPostId(postId);
+    }
 }

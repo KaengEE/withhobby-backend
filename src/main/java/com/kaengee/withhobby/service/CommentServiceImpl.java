@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +43,12 @@ public class CommentServiceImpl implements CommentService{
     //댓글삭제
     public void deleteComment(Long commentId){
         commentRepository.deleteComment(commentId);
+    }
+
+    @Override
+    //게시글별 댓글조회
+    public List<Comment> findCommentsByPostId(Long postId) {
+        return commentRepository.findByPostId(postId);
     }
 
 }
