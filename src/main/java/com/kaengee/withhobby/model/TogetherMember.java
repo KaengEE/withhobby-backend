@@ -15,6 +15,6 @@ public class TogetherMember {
     @ManyToOne(fetch = FetchType.EAGER)
     private Together together;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Member member;
+    @Column(name="user_id", nullable = false)
+    private String userId; // 참여 멤버 id
 }
