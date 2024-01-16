@@ -99,6 +99,12 @@ public class TeamServiceImpl implements TeamService {
         return teamRepository.findTeamHostId(teamname);
     }
 
+    //팀ID로 HOST_ID 찾기
+    @Override
+    public Optional<Team> findTeamHostIdByTeamId(Long teamId) {
+       return teamRepository.findById(teamId);
+    }
+
     //동아리 수정(이름,내용,이미지)
     @Transactional
     @Override

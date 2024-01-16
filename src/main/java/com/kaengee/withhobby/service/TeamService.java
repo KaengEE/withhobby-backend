@@ -4,6 +4,7 @@ import com.kaengee.withhobby.model.*;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TeamService {
 
@@ -26,6 +27,10 @@ public interface TeamService {
 
     //팀 이름으로 host_id 찾기
     Long findTeamHostId(String teamname);
+
+
+    //팀ID로 HOST_ID 찾기
+    Optional<Team> findTeamHostIdByTeamId(Long teamId);
 
     //동아리 수정(내용,이미지)
     @Transactional

@@ -33,12 +33,17 @@ public class MemberController {
         // 현재 로그인한 사용자의 정보 가져오기
         String username = userPrinciple.getUsername();
 
-        //teamId로 팀이름 찾기
+        //teamId로 팀찾기
         Team team = teamService.getTeamById(teamId);
 
-        //동아리가 없을 경우
-        if (team == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("동아리를 찾을 수 없습니다");
+        //teamId로 team_host_id 찾기
+        Optional<Team> teamHost =teamService.findTeamHostIdByTeamId(teamId);
+        if(teamHost.isPresent()){
+            Long teamHostId = teamHost.get().getTeamHost().getId();
+            //만약 동아리 host가 가입하기 버튼을 누르면 가입x
+            if(teamHostId.equals(userPrinciple.getId())){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("동아리 HOST 입니다");
+            }
         }
 
         // 동아리에 이미 멤버가 있는지 확인
