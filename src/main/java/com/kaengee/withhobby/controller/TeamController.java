@@ -6,6 +6,7 @@ import com.kaengee.withhobby.repository.TeamRepository;
 import com.kaengee.withhobby.security.UserPrinciple;
 import com.kaengee.withhobby.service.CategoryService;
 import com.kaengee.withhobby.service.TeamService;
+import com.kaengee.withhobby.service.TogetherService;
 import com.kaengee.withhobby.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,7 @@ public class TeamController {
     private final TeamRepository teamRepository;
     private final CategoryService categoryService;
     private final MemberRepository memberRepository;
+    private final TogetherService togetherService;
 
 
     //team 생성
@@ -145,6 +147,17 @@ public class TeamController {
         }
 
         return new ResponseEntity<>(teams, HttpStatus.OK);
+    }
+
+
+    //팀ID로 모임조회
+    @GetMapping("/{teamId}/together")
+    public ResponseEntity<List<Together>> getTogetherByTeamId(@PathVariable Long teamId) {
+        List<Together> togetherList = togetherService.findTogetherById(teamId);
+        if (togetherList.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(togetherList);
     }
 
 }

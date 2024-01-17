@@ -7,6 +7,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TogetherServiceImpl implements TogetherService{
@@ -46,7 +48,6 @@ public class TogetherServiceImpl implements TogetherService{
         );
     }
 
-
     @Transactional
     @Override
     //모임삭제
@@ -54,4 +55,9 @@ public class TogetherServiceImpl implements TogetherService{
         togetherRepository.deleteTogether(togetherId);
     }
 
+    @Override
+    //모임 조회(팀별 모임 list 조회 - teamId로 조회)
+    public List<Together> findTogetherById(Long togetherId) {
+       return togetherRepository.findByTeamId(togetherId);
+    }
 }
