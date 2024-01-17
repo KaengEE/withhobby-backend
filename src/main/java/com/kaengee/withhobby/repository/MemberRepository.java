@@ -22,4 +22,7 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
     //팀별로 멤버조회
     List<Member> findByTeamId(Long team);
 
+    //username와 teamId로 해당팀의 멤버인지확인
+    Optional<Member> findByUsernameAndTeamId(String username, Long teamId);
+
 }

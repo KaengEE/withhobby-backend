@@ -35,4 +35,7 @@ public interface UserService {
 
     //유저 이름으로 유저객체 찾기
     User getUserByUsername(String username);
+
+
+    Optional<User> findById(Long id);
 }

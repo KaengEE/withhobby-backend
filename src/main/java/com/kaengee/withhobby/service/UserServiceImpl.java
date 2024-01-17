@@ -111,4 +111,9 @@ public class UserServiceImpl implements UserService {
         return user.orElse(null);
     }
 
+    @Override
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
 }
