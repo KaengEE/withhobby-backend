@@ -7,6 +7,9 @@ import lombok.Setter;
 @Entity
 @Setter
 @Getter
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"together_id", "user_id"})
+})
 public class TogetherMember {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -54,4 +54,18 @@ public class TogetherMemberController {
         }
     }
 
+    //모임참가취소
+    @DeleteMapping("/{togetherId}")
+    public ResponseEntity<Object> cancelTogether(@PathVariable Long togetherId,
+                                                 @AuthenticationPrincipal UserPrinciple userPrinciple) {
+
+        // 로그인한 유저의 userId 가져오기
+        User user = userService.getUserByUsername(userPrinciple.getUsername());
+        Long userId = user.getId();
+
+        // 모임 참가 멤버 취소
+        togetherMemberService.cancelTogetherByUserIdAndTogetherId(userId, togetherId);
+
+        return ResponseEntity.ok().body("참가 취소 완료");
+    }
 }

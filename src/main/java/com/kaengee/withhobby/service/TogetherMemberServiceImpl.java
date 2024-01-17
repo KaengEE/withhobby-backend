@@ -53,4 +53,16 @@ public class TogetherMemberServiceImpl implements TogetherMemberService{
         Optional<TogetherMember> existingMember = togetherMemberRepository.findByUserIdAndTogetherId(userId, togetherId);
         return existingMember.isPresent();
     }
+
+    @Override
+    //togetherMemberId로 userId 찾기
+    public Optional<TogetherMember> findById(Long togetherMemberId) {
+        return togetherMemberRepository.findById(togetherMemberId);
+    }
+
+    @Override
+    //참가취소
+    public void cancelTogetherByUserIdAndTogetherId(Long userId, Long togetherId) {
+        togetherMemberRepository.deleteByUserIdAndTogetherId(userId, togetherId);
+    }
 }
