@@ -16,5 +16,5 @@ public class TogetherMember {
     private Together together;
 
     @Column(name="user_id", nullable = false)
-    private String userId; // 참여 멤버 id
+    private Long userId; // 참여 멤버 id
 }

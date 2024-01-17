@@ -19,4 +19,7 @@ public interface TogetherService {
 
     //모임 조회(팀별 모임 list 조회 - teamId로 조회)
     List<Together> findTogetherById(Long togetherId);
+
+    //모임 객체
+    Together findById(Long togetherId);
 }

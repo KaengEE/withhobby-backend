@@ -60,4 +60,10 @@ public class TogetherServiceImpl implements TogetherService{
     public List<Together> findTogetherById(Long togetherId) {
        return togetherRepository.findByTeamId(togetherId);
     }
+
+    @Override
+    // togetherId로 Together 객체 찾기
+    public Together findById(Long togetherId) {
+        return togetherRepository.findById(togetherId).orElse(null);
+    }
 }
