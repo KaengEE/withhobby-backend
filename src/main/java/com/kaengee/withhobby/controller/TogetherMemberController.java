@@ -1,7 +1,7 @@
 package com.kaengee.withhobby.controller;
 
+import com.kaengee.withhobby.model.TogetherMember;
 import com.kaengee.withhobby.model.User;
-import com.kaengee.withhobby.repository.MemberRepository;
 import com.kaengee.withhobby.security.UserPrinciple;
 import com.kaengee.withhobby.service.TogetherMemberService;
 import com.kaengee.withhobby.service.UserService;
@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -19,7 +20,6 @@ public class TogetherMemberController {
 
     private final TogetherMemberService togetherMemberService;
     private final UserService userService;
-    private final MemberRepository memberRepository;
 
     //모임참가
     @PostMapping("/{teamId}/join/{togetherId}")
@@ -55,7 +55,7 @@ public class TogetherMemberController {
     }
 
     //모임참가취소
-    @DeleteMapping("/{togetherId}")
+    @DeleteMapping("/cancel/{togetherId}")
     public ResponseEntity<Object> cancelTogether(@PathVariable Long togetherId,
                                                  @AuthenticationPrincipal UserPrinciple userPrinciple) {
 
@@ -65,7 +65,13 @@ public class TogetherMemberController {
 
         // 모임 참가 멤버 취소
         togetherMemberService.cancelTogetherByUserIdAndTogetherId(userId, togetherId);
+        return ResponseEntity.ok().build();
 
-        return ResponseEntity.ok().body("참가 취소 완료");
+    }
+
+    //모임의 참가자 조회
+    @GetMapping("/togetherMember/{togetherId}")
+    public List<TogetherMember> memberList(@PathVariable Long togetherId){
+        return togetherMemberService.getTogetherMembersByTogetherId(togetherId);
     }
 }

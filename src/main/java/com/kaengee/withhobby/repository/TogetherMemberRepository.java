@@ -3,6 +3,7 @@ package com.kaengee.withhobby.repository;
 import com.kaengee.withhobby.model.TogetherMember;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface TogetherMemberRepository extends JpaRepository<TogetherMember, Long> {
@@ -15,6 +16,6 @@ public interface TogetherMemberRepository extends JpaRepository<TogetherMember, 
     //참가 취소
     void deleteByUserIdAndTogetherId(Long userId, Long togetherId);
 
-    //참가자 조회
-
+    //해당 모임의 참가자 조회
+    List<TogetherMember> findByTogetherId(Long togetherId);
 }

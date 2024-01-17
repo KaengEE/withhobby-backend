@@ -5,9 +5,11 @@ import com.kaengee.withhobby.model.TogetherMember;
 import com.kaengee.withhobby.model.User;
 import com.kaengee.withhobby.repository.MemberRepository;
 import com.kaengee.withhobby.repository.TogetherMemberRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -60,9 +62,16 @@ public class TogetherMemberServiceImpl implements TogetherMemberService{
         return togetherMemberRepository.findById(togetherMemberId);
     }
 
+    @Transactional
     @Override
     //참가취소
     public void cancelTogetherByUserIdAndTogetherId(Long userId, Long togetherId) {
         togetherMemberRepository.deleteByUserIdAndTogetherId(userId, togetherId);
+    }
+
+    @Override
+    //모임의 참가자 조회
+    public List<TogetherMember> getTogetherMembersByTogetherId(Long togetherId) {
+        return togetherMemberRepository.findByTogetherId(togetherId);
     }
 }
