@@ -103,4 +103,12 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new EntityNotFoundException("유저ID를 찾을 수 없음: " + userId));
     }
 
+    @Override
+    //유저 이름으로 유저객체 찾기
+    public User getUserByUsername(String username) {
+        // 여기에 필요한 로직 추가
+        Optional<User> user = userRepository.findByUsername(username);
+        return user.orElse(null);
+    }
+
 }
