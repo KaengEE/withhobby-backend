@@ -12,6 +12,7 @@ public interface TogetherMemberService {
     //멤버인지 확인
     boolean isMemberOfTeam(Long userId, Long teamId);
 
+    //모임 멤버인지 확인
     boolean isMemberAlreadyJoined(Long userId, Long togetherId);
 
     //togetherMemberId로 userId 찾기
