@@ -63,10 +63,15 @@ public class TogetherMemberController {
         User user = userService.getUserByUsername(userPrinciple.getUsername());
         Long userId = user.getId();
 
-        // 모임 참가 멤버 취소
-        togetherMemberService.cancelTogetherByUserIdAndTogetherId(userId, togetherId);
-        return ResponseEntity.ok().build();
+        boolean existUser = togetherMemberService.isMemberAlreadyJoined(userId,togetherId);
 
+        if(existUser) {
+            // 모임 참가 멤버 취소
+            togetherMemberService.cancelTogetherByUserIdAndTogetherId(userId, togetherId);
+            return ResponseEntity.ok().build();
+        }else {
+            return ResponseEntity.badRequest().body("해당 모임의 멤버가 아닙니다.");
+        }
     }
 
     //모임의 참가자 조회
