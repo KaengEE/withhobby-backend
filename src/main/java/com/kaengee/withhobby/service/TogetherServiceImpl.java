@@ -13,12 +13,11 @@ public class TogetherServiceImpl implements TogetherService{
 
     private final TogetherRepository togetherRepository;
     private final TeamService teamService;
-    private final UserService userService;
 
     @Transactional
     @Override
     //모임 생성
-    public Together createTogether(Long teamId, Together together, Long hostId){
+    public void createTogether(Long teamId, Together together, Long hostId){
 
             Team team = teamService.getTeamById(teamId);
 
@@ -29,8 +28,22 @@ public class TogetherServiceImpl implements TogetherService{
             together.setLocation(together.getLocation()); //모임장소
             together.setDate(together.getDate()); //모임날짜
 
-            return togetherRepository.save(together);
+        togetherRepository.save(together);
 
+    }
+
+    @Transactional
+    @Override
+    //모임 수정
+    public void updateTogether(Together together, Long togetherId) {
+        //수정된 내용 저장
+        togetherRepository.updateTogether(
+                together.getTitle(),
+                together.getLocation(),
+                together.getTogetherDep(),
+                together.getDate(),
+                togetherId
+        );
     }
 
 }

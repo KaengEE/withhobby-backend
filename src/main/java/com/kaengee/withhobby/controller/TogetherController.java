@@ -3,6 +3,7 @@ package com.kaengee.withhobby.controller;
 import com.kaengee.withhobby.model.Team;
 import com.kaengee.withhobby.model.Together;
 import com.kaengee.withhobby.model.User;
+import com.kaengee.withhobby.repository.TogetherRepository;
 import com.kaengee.withhobby.security.UserPrinciple;
 import com.kaengee.withhobby.service.TeamService;
 import com.kaengee.withhobby.service.TogetherService;
@@ -21,9 +22,11 @@ import java.util.Optional;
 public class TogetherController {
 
     private final TogetherService togetherService;
+    private final TogetherRepository togetherRepository;
     private final TeamService teamService;
     private final UserService userService;
 
+    //모임 생성
     @PostMapping("/{teamId}")
     public ResponseEntity<Object> createTogether(@RequestBody Together together,
                                                  @PathVariable Long teamId,
@@ -33,13 +36,13 @@ public class TogetherController {
         User user = userService.getUserByUsername(userPrinciple.getUsername());
         //유저 아이디
         Long userId = user.getId();
-        System.out.println("현재id" + userId);
 
         //teamId로 hostId찾기
         Optional<Team> teamHost = teamService.findTeamHostIdByTeamId(teamId);
+
         if (teamHost.isPresent()) {
             Long teamHostId = teamHost.get().getTeamHost().getId();
-            System.out.println("hostId :" + teamHostId);
+            //System.out.println("hostId :" + teamHostId);
             if (userId.equals(teamHostId)) {
                 // hostId와 유저 id가 일치하는지 확인
                 togetherService.createTogether(teamId, together, userId);
@@ -54,4 +57,46 @@ public class TogetherController {
             return ResponseEntity.notFound().build();
         }
     }
+
+  //모임 내용 수정
+  @PutMapping("/{togetherId}")
+    public ResponseEntity<Object> updateTogether(@RequestBody Together together,
+                                                 @PathVariable Long togetherId,
+                                                 @AuthenticationPrincipal UserPrinciple userPrinciple) {
+        // 유저 이름으로 유저 객체 찾기
+        User user = userService.getUserByUsername(userPrinciple.getUsername());
+        // 유저 아이디
+        Long userId = user.getId();
+
+        // togetherId로 모임 찾기
+        Together findTogether = togetherRepository.findById(togetherId).orElse(null);
+        if (findTogether == null) {
+            return ResponseEntity.notFound().build(); // 모임을 찾지 못한 경우
+        }
+
+        Team team = findTogether.getTeam();
+        if (team != null) {
+            // teamId로 hostId 찾기
+            Optional<Team> teamHost = teamService.findTeamHostIdByTeamId(team.getId());
+            if (teamHost.isPresent()) {
+                Long teamHostId = teamHost.get().getTeamHost().getId();
+
+                if (userId.equals(teamHostId)) {
+                    // hostId와 유저 id가 일치하는지 확인 후 수정
+                    togetherService.updateTogether(together, togetherId);
+                    return ResponseEntity.ok("200");
+                } else {
+                    // hostId와 유저 id가 일치하지 않는 경우
+                    return ResponseEntity.badRequest().body("호스트만 수정 가능합니다.");
+                }
+            } else {
+                // teamId에 해당하는 팀을 찾지 못한 경우
+                return ResponseEntity.notFound().build();
+            }
+        } else {
+            // togetherId에 해당하는 팀을 찾지 못한 경우
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
