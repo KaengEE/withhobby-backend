@@ -46,4 +46,12 @@ public class TogetherServiceImpl implements TogetherService{
         );
     }
 
+
+    @Transactional
+    @Override
+    //모임삭제
+    public void deleteTogether(Long togetherId){
+        togetherRepository.deleteTogether(togetherId);
+    }
+
 }

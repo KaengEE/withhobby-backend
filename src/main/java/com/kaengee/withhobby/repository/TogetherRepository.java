@@ -21,6 +21,9 @@ public interface TogetherRepository extends JpaRepository<Together, Long> {
                         @Param("id") Long id);
 
     //모임 삭제
+    @Modifying
+    @Query("delete from Together where id = :id")
+    void deleteTogether(@Param("id") Long id);
 
     //모임 조회(팀별 모임 list 조회 - teamId로 조회)
 }

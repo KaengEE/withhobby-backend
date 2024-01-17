@@ -11,4 +11,7 @@ public interface TogetherService {
         //모임 수정
     void updateTogether(Together together, Long togetherId);
 
+    @Transactional
+        //모임삭제
+    void deleteTogether(Long togetherId);
 }
