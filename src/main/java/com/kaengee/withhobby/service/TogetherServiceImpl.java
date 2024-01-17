@@ -23,7 +23,7 @@ public class TogetherServiceImpl implements TogetherService{
             Team team = teamService.getTeamById(teamId);
 
             // 모임 생성 및 설정
-            together.setTeam(team); //팀아이디
+            together.setTeam(team); //팀객체
             together.setTitle(together.getTitle()); //모임제목
             together.setTogetherDep(together.getTogetherDep()); //모임설명
             together.setLocation(together.getLocation()); //모임장소
