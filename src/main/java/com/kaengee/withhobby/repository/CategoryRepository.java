@@ -13,7 +13,8 @@ import java.util.Optional;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-    Optional<Category> findByCategory(String categoryName);
+    Optional<Category> findByCategory(String category);
+
 
     //카테고리 수정
     @Modifying

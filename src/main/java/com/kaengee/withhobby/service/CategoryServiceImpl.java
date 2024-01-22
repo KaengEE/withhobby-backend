@@ -46,6 +46,7 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findByCategory(category);
     }
 
+
     @Override
     //카테고리 id로 이름 찾기
     public String findCategoryById(Long id){

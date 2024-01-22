@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -44,6 +45,19 @@ public class CategoryController {
     @GetMapping("/name/{id}")
     public String findCategoryById(@PathVariable Long id){
         return categoryService.findCategoryById(id);
+    }
+
+    //카테고리 id 찾기
+    @GetMapping("/{name}")
+    public Long findIdByName(@PathVariable String name){
+        Optional<Category> category = categoryService.findByCategory(name);
+        if(category.isPresent()){
+        Category selectCategory = category.get();
+
+        return selectCategory.getId();
+        }else {
+            return null;
+        }
     }
 
 }
