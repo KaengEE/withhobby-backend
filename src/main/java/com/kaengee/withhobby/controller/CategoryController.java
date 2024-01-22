@@ -40,4 +40,10 @@ public class CategoryController {
         return categoryService.categoryList();
     }
 
+    //카테고리 이름 조회
+    @GetMapping("/name/{id}")
+    public String findCategoryById(@PathVariable Long id){
+        return categoryService.findCategoryById(id);
+    }
+
 }

@@ -17,6 +17,9 @@ public interface CategoryService {
     //카테고리찾기(이름에 맞는 id)
     Optional<Category> findByCategory(String category);
 
+    //카테고리id로 이름 찾기
+    String findCategoryById(Long id);
+
     @Transactional
         //카테고리 수정
     void updateCategory(String category, Long id);

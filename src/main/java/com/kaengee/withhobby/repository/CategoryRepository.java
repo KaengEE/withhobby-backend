@@ -28,4 +28,8 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
     //카테고리 전체 조회
     List<Category> findAll();
 
+    //카테고리 id로 이름 찾기
+    @Query("SELECT category FROM Category WHERE id = :id")
+    String findCategoryById(Long id);
+
 }
