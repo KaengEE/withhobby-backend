@@ -1,6 +1,5 @@
 package com.kaengee.withhobby.security;
 
-import com.kaengee.withhobby.model.Role;
 import com.kaengee.withhobby.security.jwt.JwtAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -43,7 +42,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authz) ->
                         authz
                                 .requestMatchers("/api/authentication/**").permitAll()
-                                .requestMatchers("/api/category/**").hasRole(Role.ADMIN.name())
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
