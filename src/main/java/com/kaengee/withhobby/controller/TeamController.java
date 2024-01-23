@@ -61,7 +61,7 @@ public class TeamController {
 
     //동아리 master만 수정,삭제 가능
     //동아리 수정
-    @PutMapping("/master/update")
+    @PutMapping("/update")
     public void updateTeam(@RequestBody TeamForm teamForm,
                            @AuthenticationPrincipal UserPrinciple userPrinciple){
 
@@ -76,10 +76,8 @@ public class TeamController {
         Optional<User> user = userService.findByUsername(loggedInUsername);
 
         if(user.isPresent()) {
-            //수정 접근 조건 : 해당 팀의 master
-            if (hostId.equals(user.get().getId()) && status.equals(Status.MASTER)) {
-                //System.out.println(user.get().getId());
-                //System.out.println(hostId);
+            //수정 접근 조건 : 해당 팀의 hostId와 동일
+            if (hostId.equals(user.get().getId())) {
                 teamService.updateTeam(teamForm);
             } else {
                 System.out.println("접근 불가");
@@ -147,6 +145,12 @@ public class TeamController {
         }
 
         return new ResponseEntity<>(teams, HttpStatus.OK);
+    }
+
+    //팀id로 팀 조회
+    @GetMapping("/detail/{teamId}")
+    public Team findById(@PathVariable Long teamId){
+        return teamService.getTeamById(teamId);
     }
 
 
