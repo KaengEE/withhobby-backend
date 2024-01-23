@@ -107,4 +107,10 @@ public class CommentController {
     public List<Comment> getCommentsByPostId(@PathVariable Long postId) {
         return commentService.findCommentsByPostId(postId);
     }
+
+    //id로 댓글 찾기
+    @GetMapping("/find/{commentId}")
+    public Optional<Comment> findComment(@PathVariable Long commentId){
+        return commentService.findById(commentId);
+    }
 }

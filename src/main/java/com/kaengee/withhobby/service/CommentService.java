@@ -5,6 +5,7 @@ import com.kaengee.withhobby.model.CommentForm;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CommentService {
     //댓글 작성
@@ -24,6 +25,8 @@ public interface CommentService {
 
     //게시글별 댓글조회
     List<Comment> findCommentsByPostId(Long postId);
+
+    Optional<Comment> findById(Long commentId);
 
     //특정게시글의 댓글 모두 삭제
 }
