@@ -12,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,6 +33,13 @@ public class PostController {
         postService.createPost(post, userId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body("게시글 작성 성공");
+    }
+
+    //게시글 상세내용
+    @GetMapping("/{postId}")
+    public Optional<Post> getPostById(@PathVariable Long postId,
+                                      @AuthenticationPrincipal UserPrinciple userPrinciple) {
+        return postService.findById(postId);
     }
 
     //게시글 수정

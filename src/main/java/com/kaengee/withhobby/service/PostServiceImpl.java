@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -60,6 +61,11 @@ public class PostServiceImpl implements PostService{
         return postRepository.findAll();
     }
 
+    @Override
+    //id로 게시글 조회
+    public Optional<Post> findById(Long postId){
+        return postRepository.findById(postId);
+    }
 
     //게시글id로 게시글 찾기
     @Override

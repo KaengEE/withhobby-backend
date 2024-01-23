@@ -4,6 +4,7 @@ import com.kaengee.withhobby.model.Post;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PostService {
 
@@ -20,6 +21,10 @@ public interface PostService {
 
     //게시글 조회
     List<Post> findAllPosts();
+
+
+    //id로 게시글 조회
+    Optional<Post> findById(Long postId);
 
     Post getPostById(Long postId);
 }
