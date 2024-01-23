@@ -3,6 +3,7 @@ package com.kaengee.withhobby.repository;
 import com.kaengee.withhobby.model.Category;
 import com.kaengee.withhobby.model.Team;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -49,4 +50,6 @@ public interface TeamRepository extends JpaRepository<Team,Long> {
     @Query("SELECT id from Team where teamname = :teamname")
     Long findTeamId(@Param("teamname") String teamname);
 
+    //전체 팀 리스트
+    List<Team> findAll();
 }

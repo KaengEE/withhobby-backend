@@ -128,5 +128,10 @@ public class TeamServiceImpl implements TeamService {
         return teamRepository.findTeamId(teamname);
     }
 
+    //팀 전체조회
+    @Override
+    public List<Team> findAll(){
+        return teamRepository.findAll();
+    }
 
 }

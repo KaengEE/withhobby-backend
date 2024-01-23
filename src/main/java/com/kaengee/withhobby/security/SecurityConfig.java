@@ -42,6 +42,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authz) ->
                         authz
                                 .requestMatchers("/api/authentication/**").permitAll()
+                                .requestMatchers("/api/team/list").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

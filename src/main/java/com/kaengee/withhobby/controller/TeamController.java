@@ -171,4 +171,13 @@ public class TeamController {
         return ResponseEntity.ok(togetherList);
     }
 
+    //전체 팀 조회
+    @GetMapping("/list")
+    public ResponseEntity<List<Team>> getTeamList(){
+        List<Team> team = teamService.findAll();
+        if(team.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(team);
+    }
 }

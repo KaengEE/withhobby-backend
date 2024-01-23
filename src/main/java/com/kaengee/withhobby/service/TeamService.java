@@ -44,6 +44,9 @@ public interface TeamService {
     //팀 아이디 찾기
     Long findTeamId(String teamname);
 
+    //팀 전체조회
+    List<Team> findAll();
+
 
     //동아리 삭제
 }
