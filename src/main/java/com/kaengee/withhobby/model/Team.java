@@ -31,6 +31,7 @@ public class Team {
 
     //한개의 team은 한개의 category를 가짐
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id")
     private Category category; //카테고리
 
     @Column(name="create_at", nullable = false)

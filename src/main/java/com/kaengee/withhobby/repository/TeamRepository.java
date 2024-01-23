@@ -2,6 +2,7 @@ package com.kaengee.withhobby.repository;
 
 import com.kaengee.withhobby.model.Category;
 import com.kaengee.withhobby.model.Team;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,14 +18,9 @@ public interface TeamRepository extends JpaRepository<Team,Long> {
 
     //팀수정
     @Modifying
-    @Query("update Team set teamTitle = :teamTitle, teamImg = :teamImg, category = :category where teamname = :teamname and id = :teamId")
-    void updateTeam(
-            @Param("teamname") String teamname,
-            @Param("teamTitle") String teamTitle,
-            @Param("teamImg") String teamImg,
-            @Param("category") Category category,
-            @Param("teamId") Long teamId
-    );
+    @Transactional
+    @Query("UPDATE Team t SET t.teamname = :teamname, t.teamTitle = :teamTitle, t.teamImg = :teamImg, t.category = :category WHERE t.id = :teamId")
+    void updateTeam(@Param("teamname") String teamname, @Param("teamTitle") String teamTitle, @Param("teamImg") String teamImg, @Param("category") Category category, @Param("teamId") Long teamId);
 
     //팀삭제
     @Modifying

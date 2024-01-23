@@ -107,10 +107,12 @@ public class TeamServiceImpl implements TeamService {
     //동아리 수정(이름,내용,이미지)
     @Transactional
     @Override
-    public void updateTeam(TeamForm teamForm, Long teamId){
-        Category category = categoryService.createOrGetExistingCategory(teamForm.getCategory());
-        teamRepository.updateTeam(teamForm.getTeamname(), teamForm.getTeamTitle(), teamForm.getTeamImg(), category, teamId);    }
-
+    public void updateTeam(TeamForm teamForm, Long teamId) {
+        Optional<Category> category = categoryService.findByCategory(teamForm.getCategory());
+        if (category.isPresent()) {
+            teamRepository.updateTeam(teamForm.getTeamname(), teamForm.getTeamTitle(), teamForm.getTeamImg(), category.get(), teamId);
+        }
+    }
 
     //동아리 삭제
     @Transactional

@@ -62,7 +62,7 @@ public class TeamController {
     //동아리 host만 수정,삭제 가능
     //동아리 수정
     @PutMapping("/update/{teamId}")
-    public void updateTeam(@PathVariable Long teamId,
+    public ResponseEntity<Object> updateTeam(@PathVariable Long teamId,
                            @RequestBody TeamForm teamForm,
                            @AuthenticationPrincipal UserPrinciple userPrinciple){
 
@@ -72,20 +72,24 @@ public class TeamController {
         Optional<Team> team = teamService.findTeamHostIdByTeamId(teamId);
         if(team.isPresent()) {
             Long hostId = team.get().getTeamHost().getId();
-            System.out.println(hostId);
             //로그인한 사용자의 id 찾기
             Optional<User> user = userService.findByUsername(loggedInUsername);
 
-            if(user.isPresent()) {
-                //수정 접근 조건 : 해당 팀의 hostId와 동일
-                if (hostId.equals(user.get().getId())) {
-                    teamService.updateTeam(teamForm, teamId);
-                } else {
-                    System.out.println("접근 불가");
+            //카테고리 객체찾기
+            Optional<Category> category = categoryService.findByCategory(teamForm.getCategory());
+            if(category.isPresent()) {
+                if (user.isPresent()) {
+                    //수정 접근 조건 : 해당 팀의 hostId와 동일
+                    if (hostId.equals(user.get().getId())) {
+                        teamRepository.updateTeam(teamForm.getTeamname(), teamForm.getTeamTitle(), teamForm.getTeamImg(), category.get(), teamId);
+                        return ResponseEntity.ok("수정 성공");
+                    } else {
+                        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("수정 실패");
+                    }
                 }
             }
         }
-
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("수정 실패");
     }
 
     // 동아리 삭제
