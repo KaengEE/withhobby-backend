@@ -54,7 +54,6 @@ public class TeamServiceImpl implements TeamService {
             //System.out.println(category.get());
             team.setCategory(category.get());
         }
-
         return team;
     }
 
@@ -108,9 +107,9 @@ public class TeamServiceImpl implements TeamService {
     //동아리 수정(이름,내용,이미지)
     @Transactional
     @Override
-    public void updateTeam(TeamForm teamForm){
-        teamRepository.updateTeam(teamForm.getTeamname(), teamForm.getTeamTitle(), teamForm.getTeamImg());
-    }
+    public void updateTeam(TeamForm teamForm, Long teamId){
+        Category category = categoryService.createOrGetExistingCategory(teamForm.getCategory());
+        teamRepository.updateTeam(teamForm.getTeamname(), teamForm.getTeamTitle(), teamForm.getTeamImg(), category, teamId);    }
 
 
     //동아리 삭제

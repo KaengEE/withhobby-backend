@@ -32,9 +32,10 @@ public interface TeamService {
     //팀ID로 HOST_ID 찾기
     Optional<Team> findTeamHostIdByTeamId(Long teamId);
 
-    //동아리 수정(내용,이미지)
+
+    //동아리 수정(이름,내용,이미지)
     @Transactional
-    void updateTeam(TeamForm teamForm);
+    void updateTeam(TeamForm teamForm, Long teamId);
 
     //동아리 삭제
     @Transactional

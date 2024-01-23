@@ -59,30 +59,33 @@ public class TeamController {
         teamService.updateTeamCategory(teamId.getId(), newCategory);
     }
 
-    //동아리 master만 수정,삭제 가능
+    //동아리 host만 수정,삭제 가능
     //동아리 수정
-    @PutMapping("/update")
-    public void updateTeam(@RequestBody TeamForm teamForm,
+    @PutMapping("/update/{teamId}")
+    public void updateTeam(@PathVariable Long teamId,
+                           @RequestBody TeamForm teamForm,
                            @AuthenticationPrincipal UserPrinciple userPrinciple){
 
         // 현재 로그인한 사용자의 username을 이용해서 상태 가져오기
         String loggedInUsername = userPrinciple.getUsername();
-        Status status = userService.getUserStatusByUsername(loggedInUsername);
-
         //host_id 가져오기
-        Long hostId = teamService.findTeamHostId(teamForm.getTeamname());
+        Optional<Team> team = teamService.findTeamHostIdByTeamId(teamId);
+        if(team.isPresent()) {
+            Long hostId = team.get().getTeamHost().getId();
+            System.out.println(hostId);
+            //로그인한 사용자의 id 찾기
+            Optional<User> user = userService.findByUsername(loggedInUsername);
 
-        //로그인한 사용자의 id 찾기
-        Optional<User> user = userService.findByUsername(loggedInUsername);
-
-        if(user.isPresent()) {
-            //수정 접근 조건 : 해당 팀의 hostId와 동일
-            if (hostId.equals(user.get().getId())) {
-                teamService.updateTeam(teamForm);
-            } else {
-                System.out.println("접근 불가");
+            if(user.isPresent()) {
+                //수정 접근 조건 : 해당 팀의 hostId와 동일
+                if (hostId.equals(user.get().getId())) {
+                    teamService.updateTeam(teamForm, teamId);
+                } else {
+                    System.out.println("접근 불가");
+                }
             }
         }
+
     }
 
     // 동아리 삭제

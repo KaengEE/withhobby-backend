@@ -17,10 +17,14 @@ public interface TeamRepository extends JpaRepository<Team,Long> {
 
     //팀수정
     @Modifying
-    @Query("update Team set teamTitle = :teamTitle, teamImg = :teamImg  where teamname = :teamname")
-    void updateTeam(@Param("teamname") String teamname,
-                    @Param("teamTitle") String teamTitle,
-                    @Param("teamImg") String teamImg);
+    @Query("update Team set teamTitle = :teamTitle, teamImg = :teamImg, category = :category where teamname = :teamname and id = :teamId")
+    void updateTeam(
+            @Param("teamname") String teamname,
+            @Param("teamTitle") String teamTitle,
+            @Param("teamImg") String teamImg,
+            @Param("category") Category category,
+            @Param("teamId") Long teamId
+    );
 
     //팀삭제
     @Modifying
