@@ -1,6 +1,7 @@
 package com.kaengee.withhobby.service;
 
 import com.kaengee.withhobby.model.*;
+import com.kaengee.withhobby.repository.MemberRepository;
 import com.kaengee.withhobby.repository.TeamRepository;
 import com.kaengee.withhobby.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +21,7 @@ public class TeamServiceImpl implements TeamService {
     private final TeamRepository teamRepository;
     private final UserRepository userRepository;
     private final CategoryService categoryService;
-
+    private final MemberRepository memberRepository;
 
 
     //동아리 등록
@@ -132,6 +134,19 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public List<Team> findAll(){
         return teamRepository.findAll();
+    }
+
+    @Override
+    //특정 USERID와 HOSTID가 일치하는 TEAM찾기
+    public Team findTeamByUserId(Long userId) {
+        return teamRepository.findByTeamHost_Id(userId);
+    }
+
+    @Override
+    public List<Team> getTeamsByUsername(String username) {
+        List<Member> memberList = memberRepository.findByUsername(username);
+        List<Team> teamList = memberList.stream().map(Member::getTeam).collect(Collectors.toList());
+        return teamList;
     }
 
 }

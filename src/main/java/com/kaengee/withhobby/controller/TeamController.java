@@ -180,4 +180,28 @@ public class TeamController {
         }
         return ResponseEntity.ok(team);
     }
+
+    //해당유저가 host인 team찾기
+    @GetMapping("/findTeam/{userId}")
+    public ResponseEntity<Team> findTeamByUserId(@PathVariable Long userId) {
+        Team team = teamService.findTeamByUserId(userId);
+
+        if (team != null) {
+            return new ResponseEntity<>(team, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //userId가 속한 team찾기
+    @GetMapping("/byUserName/{username}")
+    public ResponseEntity<List<Team>> getTeamsByUserId(@PathVariable String username) {
+        List<Team> teamList = teamService.getTeamsByUsername(username);
+
+        if (teamList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(teamList, HttpStatus.OK);
+        }
+    }
 }

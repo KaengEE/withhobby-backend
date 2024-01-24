@@ -47,6 +47,11 @@ public interface TeamService {
     //팀 전체조회
     List<Team> findAll();
 
+    //특정 USERID와 HOSTID가 일치하는 TEAM찾기
+    Team findTeamByUserId(Long userId);
+
+    List<Team> getTeamsByUsername(String username);
+
 
     //동아리 삭제
 }

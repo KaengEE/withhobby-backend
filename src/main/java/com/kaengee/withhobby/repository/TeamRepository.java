@@ -3,7 +3,6 @@ package com.kaengee.withhobby.repository;
 import com.kaengee.withhobby.model.Category;
 import com.kaengee.withhobby.model.Team;
 import jakarta.transaction.Transactional;
-import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -52,4 +51,7 @@ public interface TeamRepository extends JpaRepository<Team,Long> {
 
     //전체 팀 리스트
     List<Team> findAll();
+
+    // 유저의 ID로 연관된 TEAM 객체 조회
+    Team findByTeamHost_Id(Long userId);
 }

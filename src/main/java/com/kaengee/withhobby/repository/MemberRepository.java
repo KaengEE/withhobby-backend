@@ -25,4 +25,6 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
     //username와 teamId로 해당팀의 멤버인지확인
     Optional<Member> findByUsernameAndTeamId(String username, Long teamId);
 
+    //userId로 member 찾기
+    List<Member> findByUsername(String username);
 }
