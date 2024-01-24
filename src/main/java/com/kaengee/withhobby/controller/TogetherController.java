@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -99,6 +100,11 @@ public class TogetherController {
         }
     }
 
+    //모임id로 찾기
+    @GetMapping("/detail/{togetherId}")
+    public Together findById(@PathVariable Long togetherId, @AuthenticationPrincipal UserPrinciple userPrinciple){
+        return  togetherService.findById(togetherId);
+    }
 
     //모임삭제
     @DeleteMapping("/{togetherId}")
@@ -141,6 +147,11 @@ public class TogetherController {
         }
     }
 
+    //모임리스트
+    @GetMapping("/list/{teamId}")
+    public List<Together> togetherList(@PathVariable Long teamId,@AuthenticationPrincipal UserPrinciple userPrinciple){
+        return togetherService.findTogetherById(teamId);
+    }
 
 
 }
