@@ -42,7 +42,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authz) ->
                         authz
                                 .requestMatchers("/api/authentication/**").permitAll()
-                                .requestMatchers("/api/team/list").permitAll()
+                                .requestMatchers("/api/team/list").permitAll() //홈에 출력
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
