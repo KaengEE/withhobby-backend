@@ -43,6 +43,7 @@ public class SecurityConfig {
                         authz
                                 .requestMatchers("/api/authentication/**").permitAll()
                                 .requestMatchers("/api/team/list").permitAll() //홈에 출력
+                                .requestMatchers("/api/post/list").permitAll() //홈에 출력
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
