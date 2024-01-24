@@ -21,6 +21,16 @@ public class TogetherMemberController {
     private final TogetherMemberService togetherMemberService;
     private final UserService userService;
 
+    //모임의 멤버인지아닌지 확인
+    @GetMapping("/checkMember/{userId}/{togetherId}")
+    public ResponseEntity<Boolean> isMemberAlreadyJoined(
+            @PathVariable Long userId,
+            @PathVariable Long togetherId,@AuthenticationPrincipal UserPrinciple userPrinciple
+    ) {
+        boolean isMemberJoined = togetherMemberService.isMemberAlreadyJoined(userId, togetherId);
+        return ResponseEntity.ok(isMemberJoined);
+    }
+
     //모임참가
     @PostMapping("/{teamId}/join/{togetherId}")
     public ResponseEntity<Object> joinTogether(@PathVariable Long togetherId,
