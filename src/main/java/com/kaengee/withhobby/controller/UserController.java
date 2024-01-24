@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/user")
@@ -54,5 +56,11 @@ public class UserController {
     @DeleteMapping("/delete")
     public void deleteUser(@AuthenticationPrincipal UserPrinciple userPrinciple){
         userService.deleteUser(userPrinciple.getUsername());
+    }
+
+    //유저id로 유저 찾기
+    @GetMapping("/findUsername/{userId}")
+    public Optional<User> findUsernameById(@PathVariable Long userId,@AuthenticationPrincipal UserPrinciple userPrinciple){
+        return userService.findById(userId);
     }
 }
