@@ -102,4 +102,10 @@ public class PostController {
         return postService.findAllPosts();
     }
 
+    //userId로 게시글 찾기
+    @GetMapping("/list/{userId}")
+    public List<Post> getListByUserId(@PathVariable Long userId){
+        return postService.getPostsByUserId(userId);
+    }
+
 }

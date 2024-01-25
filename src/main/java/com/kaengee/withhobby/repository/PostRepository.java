@@ -34,4 +34,8 @@ public interface PostRepository extends JpaRepository<Post,Long> {
 
     //id로 게시글 조회
     Optional<Post> findById(Long postId);
+
+    //userId로 게시글 리스트 조회
+    List<Post> findPostsByUserId(Long userId);
+
 }

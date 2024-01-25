@@ -153,5 +153,10 @@ public class TogetherController {
         return togetherService.findTogetherById(teamId);
     }
 
+    //userId로 together 리스트 출력
+    @GetMapping("/listByUserId/{userId}")
+    public List<Together> getTogetherListByUserId(@PathVariable Long userId){
+        return togetherService.getTogetherListByUserId(userId);
+    }
 
 }

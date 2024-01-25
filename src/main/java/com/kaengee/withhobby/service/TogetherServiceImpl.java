@@ -2,6 +2,8 @@ package com.kaengee.withhobby.service;
 
 import com.kaengee.withhobby.model.Team;
 import com.kaengee.withhobby.model.Together;
+import com.kaengee.withhobby.model.TogetherMember;
+import com.kaengee.withhobby.repository.TogetherMemberRepository;
 import com.kaengee.withhobby.repository.TogetherRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ public class TogetherServiceImpl implements TogetherService{
 
     private final TogetherRepository togetherRepository;
     private final TeamService teamService;
+    private final TogetherMemberRepository togetherMemberRepository;
 
     @Transactional
     @Override
@@ -65,5 +68,15 @@ public class TogetherServiceImpl implements TogetherService{
     // togetherId로 Together 객체 찾기
     public Together findById(Long togetherId) {
         return togetherRepository.findById(togetherId).orElse(null);
+    }
+
+    @Override
+    public List<Together> getTogetherListByUserId(Long userId) {
+        List<TogetherMember> togetherMembers = togetherMemberRepository.findByUserId(userId);
+
+        // TogetherMember 엔터티에서 Together 엔터티를 추출
+        return togetherMembers.stream()
+                .map(TogetherMember::getTogether)
+                .toList();
     }
 }

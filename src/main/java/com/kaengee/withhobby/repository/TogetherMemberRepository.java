@@ -18,4 +18,7 @@ public interface TogetherMemberRepository extends JpaRepository<TogetherMember, 
 
     //해당 모임의 참가자 조회
     List<TogetherMember> findByTogetherId(Long togetherId);
+
+    // userId로 member 찾기
+    List<TogetherMember> findByUserId(Long userId);
 }

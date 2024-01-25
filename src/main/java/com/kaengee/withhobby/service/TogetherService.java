@@ -22,4 +22,6 @@ public interface TogetherService {
 
     //모임 객체
     Together findById(Long togetherId);
+
+    List<Together> getTogetherListByUserId(Long userId);
 }

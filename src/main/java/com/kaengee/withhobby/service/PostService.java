@@ -27,4 +27,7 @@ public interface PostService {
     Optional<Post> findById(Long postId);
 
     Post getPostById(Long postId);
+
+    //유저id로 게시글 찾기
+    List<Post> getPostsByUserId(Long userId);
 }

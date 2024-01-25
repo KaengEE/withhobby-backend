@@ -73,4 +73,10 @@ public class PostServiceImpl implements PostService{
         return postRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException("게시글ID를 찾을 수 없음: " + postId));
     }
+
+    @Override
+    //유저id로 게시글 찾기
+    public List<Post> getPostsByUserId(Long userId) {
+        return postRepository.findPostsByUserId(userId);
+    }
 }
