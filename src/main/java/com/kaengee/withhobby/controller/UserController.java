@@ -24,7 +24,8 @@ public class UserController {
     //전체 회원 리스트
     @GetMapping("list")
     public ResponseEntity<List<User>> getUserList(){
-        List<User> user = userService.findAllUsers();
+        //System.out.println("getUserList() 메서드가 호출되었습니다.");
+        List<User> user = userService.findAll();
         if(user.isEmpty()){
             return ResponseEntity.notFound().build();
         }

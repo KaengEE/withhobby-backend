@@ -2,6 +2,7 @@ package com.kaengee.withhobby.service;
 
 import com.kaengee.withhobby.model.Role;
 import com.kaengee.withhobby.model.Status;
+import com.kaengee.withhobby.model.Team;
 import com.kaengee.withhobby.model.User;
 import com.kaengee.withhobby.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -43,9 +44,8 @@ public class UserServiceImpl implements UserService {
 
     //전체 유저리스트
     @Override
-    public List<User> findAllUsers(){
-        return userRepository.findAllUsers();
-    }
+    public List<User> findAll(){
+        return userRepository.findAll(); }
 
     @Override
     @Transactional

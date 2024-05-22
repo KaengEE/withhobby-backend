@@ -17,7 +17,7 @@ public interface UserService {
     Optional<User> findByUsername(String username);
 
     //전체 유저리스트
-    List<User> findAllUsers();
+    List<User> findAll();
 
     //role변경
     void changeRole(Role newRole, String username);

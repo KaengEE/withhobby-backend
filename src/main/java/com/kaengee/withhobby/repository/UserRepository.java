@@ -32,6 +32,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void deleteUser(@Param("username") String username);
 
     //모든 유저 리스트
-    @Query("SELECT u FROM User u")
-    List<User> findAllUsers();
+    List<User> findAll();
 }
