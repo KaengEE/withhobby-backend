@@ -44,6 +44,7 @@ public class SecurityConfig {
                                 .requestMatchers("/api/authentication/**").permitAll()
                                 .requestMatchers("/api/team/list").permitAll() //홈에 출력
                                 .requestMatchers("/api/post/list").permitAll() //홈에 출력
+                                .requestMatchers("/api/user/list").permitAll() // 유저 리스트
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
