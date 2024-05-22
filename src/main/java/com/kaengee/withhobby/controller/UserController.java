@@ -32,11 +32,10 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    //회원 role 수정
-    @PutMapping("change/{role}")
-    public ResponseEntity<Object> changeRole(@AuthenticationPrincipal UserPrinciple userPrinciple, @PathVariable Role role){
-        userService.changeRole(role, userPrinciple.getUsername());
-
+    //회원 role 수정 (관리자가 다른 유저의 역할을 변경)
+    @PutMapping("change/{username}/{role}")
+    public ResponseEntity<Object> changeRole(@PathVariable String username, @PathVariable Role role) {
+        userService.changeRole(role, username);
         return ResponseEntity.ok(true);
     }
 
