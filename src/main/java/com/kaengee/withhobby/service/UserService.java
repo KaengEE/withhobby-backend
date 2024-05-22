@@ -5,6 +5,7 @@ import com.kaengee.withhobby.model.Status;
 import com.kaengee.withhobby.model.User;
 import jakarta.transaction.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
@@ -14,6 +15,9 @@ public interface UserService {
 
     //유저찾기
     Optional<User> findByUsername(String username);
+
+    //전체 유저리스트
+    List<User> findAllUsers();
 
     //role변경
     void changeRole(Role newRole, String username);

@@ -2,6 +2,7 @@ package com.kaengee.withhobby.controller;
 
 import com.kaengee.withhobby.model.ChangePassword;
 import com.kaengee.withhobby.model.Role;
+import com.kaengee.withhobby.model.Team;
 import com.kaengee.withhobby.model.User;
 import com.kaengee.withhobby.security.UserPrinciple;
 import com.kaengee.withhobby.service.UserService;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -18,6 +20,16 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+
+    //전체 회원 리스트
+    @GetMapping("list")
+    public ResponseEntity<List<User>> getUserList(){
+        List<User> user = userService.findAllUsers();
+        if(user.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(user);
+    }
 
     //회원 role 수정
     @PutMapping("change/{role}")
